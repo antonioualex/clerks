@@ -14,3 +14,7 @@ func (s UserService) Populate() error {
 func (s UserService) GetUsers(email string, limit, offset int) ([]domain.User, int, int, error) {
 	return []domain.User{}, 0, 0, nil
 }
+
+func NewUserService(ur domain.UserRepository, rr domain.RandomUserRepository) *UserService {
+	return &UserService{ur: ur, rr: rr}
+}
