@@ -1,0 +1,8 @@
+version: '3'
+services:
+  arangodb:
+    image: arangodb:3.7
+    environment:
+      - ARANGO_ROOT_PASSWORD=rootpassword
+    ports:
+      - 8572:8529
