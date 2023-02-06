@@ -8,7 +8,11 @@ type UserService struct {
 }
 
 func (s UserService) Populate() error {
-	return nil
+	randomUsers, err := s.rr.FetchUsers()
+	if err != nil {
+		return err
+	}
+	return s.ur.AddUsers(randomUsers)
 }
 
 func (s UserService) GetUsers(email string, limit, offset int) ([]domain.User, int, int, error) {

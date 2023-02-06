@@ -3,6 +3,8 @@ package arango
 import (
 	"clerks/domain"
 	"context"
+	"errors"
+	"fmt"
 	"github.com/arangodb/go-driver"
 )
 
@@ -12,6 +14,18 @@ type UserRepository struct {
 }
 
 func (r UserRepository) AddUsers(users []domain.User) error {
+	col, err := r.db.Collection(nil, r.c)
+	if err != nil {
+		errMessage := fmt.Sprintf("could not get users collection from database. err: %v", err)
+		return errors.New(errMessage)
+	}
+
+	_, _, err = col.CreateDocuments(nil, users)
+	if err != nil {
+		createDocErr := fmt.Sprintf("failed to create user documents. err: %+v", err)
+		return errors.New(createDocErr)
+	}
+
 	return nil
 }
 
