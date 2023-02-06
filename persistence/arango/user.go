@@ -1,8 +1,14 @@
 package arango
 
-import "clerks/domain"
+import (
+	"clerks/domain"
+	"context"
+	"github.com/arangodb/go-driver"
+)
 
 type UserRepository struct {
+	db driver.Database
+	c  string
 }
 
 func (r UserRepository) AddUsers(users []domain.User) error {
@@ -13,6 +19,31 @@ func (r UserRepository) GetUsers(email string, limit, offset int) ([]domain.User
 	return []domain.User{}, 0, 0, nil
 }
 
-func NewUserRepository() (*UserRepository, error) {
-	return &UserRepository{}, nil
+func NewUserRepository(db driver.Database, collectionName string) (*UserRepository, error) {
+	ctx := context.Background()
+	colExists, err := db.CollectionExists(ctx, collectionName)
+	if err != nil {
+		return nil, err
+	}
+
+	if !colExists {
+		col, createCollErr := db.CreateCollection(ctx, collectionName, nil)
+		if createCollErr != nil {
+			return nil, createCollErr
+		}
+
+		options := driver.EnsurePersistentIndexOptions{
+			Unique: true,
+			Name:   "unique_email",
+		}
+		_, _, err = col.EnsurePersistentIndex(ctx, []string{"email"}, &options)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &UserRepository{
+		db: db,
+		c:  collectionName,
+	}, nil
 }
