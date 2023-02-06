@@ -1,0 +1,22 @@
+# github.com/arangodb/go-driver v1.4.1
+## explicit; go 1.17
+github.com/arangodb/go-driver
+github.com/arangodb/go-driver/cluster
+github.com/arangodb/go-driver/http
+github.com/arangodb/go-driver/util
+# github.com/arangodb/go-velocypack v0.0.0-20200318135517-5af53c29c67e
+## explicit; go 1.12
+github.com/arangodb/go-velocypack
+# github.com/google/go-cmp v0.5.9
+## explicit; go 1.13
+github.com/google/go-cmp/cmp
+github.com/google/go-cmp/cmp/internal/diff
+github.com/google/go-cmp/cmp/internal/flags
+github.com/google/go-cmp/cmp/internal/function
+github.com/google/go-cmp/cmp/internal/value
+# github.com/gorilla/mux v1.8.0
+## explicit; go 1.12
+github.com/gorilla/mux
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
