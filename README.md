@@ -33,10 +33,10 @@ You can use multiple parameters by adding the `&` symbol between the parameters,
 
 ### HowTo
 
-#### Setup Server
+#### Set up Server
 `Ensure that you have Docker and Docker Compose installed on your system.`
 
-Docker Compose is used to setup the server and the database for easy reproduction and testing of the project.
+Docker Compose is used to set up the server and the database for easy reproduction and testing of the project.
 
 - Navigate to the **infra/docker** directory of the project.
 - Run **docker-compose up** to build and start the services defined in the Docker Compose file.
@@ -52,7 +52,7 @@ created by the services.
 - Run `go build ./cmd/main.go`  to build the binary executable for the service.
 - Start the service by running the following command: ```./cmd/main```
 
-###### Optional enviroment variables
+###### Optional environment variables
 
 ```
 SERVE_ON_PORT= Set service port, default value is 8000
