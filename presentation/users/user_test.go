@@ -119,11 +119,11 @@ func TestUserHandler_GetUsersService_StatusOK(t *testing.T) {
 		t.Error(err)
 	}
 
-	if clerksResp.OffsetResponse.EndingBefore != endingBefore {
+	if clerksResp.PageResponse.EndingBefore != endingBefore {
 		t.Error("invalid EndingBefore response")
 	}
 
-	if clerksResp.OffsetResponse.StartingAfter != startingAfter {
+	if clerksResp.PageResponse.StartingAfter != startingAfter {
 		t.Error("invalid StartingAfter response")
 	}
 

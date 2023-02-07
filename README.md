@@ -20,14 +20,14 @@ The server provides the following endpoints:
   results. The parameters are:
     - **limit**: Specifies the maximum number of users returned to the response.
       The value of limit must be a number between 1 and 100, e.g., `localhost:8000/clerks?limit=5`.
-    - **offset**: Indicates the starting point for pagination by including the starting_after
+    - **page**: Indicates the starting point for pagination by including the starting_after
       or ending_before value from a previous response. The starting_after value indicates the next page,
       while the ending_before value indicates the previous page. Pages are counted starting from 0, e.g.,
-      `localhost:8000/clerks?offset=7`.
+      `localhost:8000/clerks?page=7`.
     - **email**: Filters the users based on their email address, e.g., `localhost:8000/clerks?email=cl@erk.com`.
 
 You can use multiple parameters by adding the `&` symbol between the parameters, e.g.,
-`localhost:8000/clerks?limit=5&offset=10`.
+`localhost:8000/clerks?limit=5&page=10`.
 
 
 

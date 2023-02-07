@@ -11,14 +11,14 @@ type UserHandler struct {
 	us domain.UserService
 }
 
-type OffsetResponse struct {
+type PageResponse struct {
 	StartingAfter int `json:"starting_after"`
 	EndingBefore  int `json:"ending_before"`
 }
 
 type ClerksResponse struct {
-	OffsetResponse `json:"Offset"`
-	Results        []domain.User `json:"results"`
+	PageResponse `json:"page"`
+	Results      []domain.User `json:"results"`
 }
 
 func (uh UserHandler) Populate(writer http.ResponseWriter, request *http.Request) {
@@ -43,13 +43,13 @@ func (uh UserHandler) Clerks(writer http.ResponseWriter, request *http.Request) 
 		limit = 10
 	}
 
-	offsetStr := request.URL.Query().Get("offset")
-	offset, err := strconv.Atoi(offsetStr)
+	pageStr := request.URL.Query().Get("page")
+	page, err := strconv.Atoi(pageStr)
 	if err != nil {
-		offset = 0
+		page = 0
 	}
 
-	users, startingAfter, endingBefore, err := uh.us.GetUsers(email, limit, offset)
+	users, startingAfter, endingBefore, err := uh.us.GetUsers(email, limit, page)
 	if err != nil {
 		writer.WriteHeader(http.StatusBadRequest)
 		writer.Write([]byte(err.Error()))
@@ -57,7 +57,7 @@ func (uh UserHandler) Clerks(writer http.ResponseWriter, request *http.Request) 
 	}
 
 	clerksResp := ClerksResponse{
-		OffsetResponse: OffsetResponse{
+		PageResponse: PageResponse{
 			StartingAfter: startingAfter,
 			EndingBefore:  endingBefore,
 		},
